@@ -1,0 +1,88 @@
+<!doctype html>
+<!-- If the app ships WITHOUT the Apple Intelligence path (the v1 / BYOK-only
+     listing in docs/app-store.md), remove the two sections marked
+     "APPLE PATH" below and promote the API-key question to the top. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Support — Improv Kitchen</title>
+<style>
+  :root { --paper:#fbf6d8; --ink:#2e2a26; --soft:#6b635a; --line:#e8ddab; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#1c1a17; --ink:#efe7d9; --soft:#a9a093; --line:#3a352f; }
+  }
+  body { margin:0; padding:2.5rem 1.25rem 5rem; background:var(--paper); color:var(--ink);
+         font:16px/1.65 ui-rounded,-apple-system,system-ui,sans-serif; }
+  main { max-width:44rem; margin:0 auto; }
+  h1 { font-size:1.9rem; line-height:1.2; margin:0 0 .25rem; }
+  h2 { font-size:1.15rem; margin:2.25rem 0 .5rem; }
+  h3 { font-size:1rem; margin:1.5rem 0 .35rem; }
+  p, li { color:var(--ink); }
+  .sub { color:var(--soft); margin:0 0 2rem; }
+  strong { font-weight:700; }
+  ul { padding-left:1.2rem; }
+  li { margin:.35rem 0; }
+  hr { border:0; border-top:1px solid var(--line); margin:2.5rem 0; }
+  .note { color:var(--soft); font-size:.925rem; }
+  a { color:inherit; }
+  code { font-family:ui-monospace,monospace; font-size:.9em; }
+</style>
+</head>
+<body>
+<main>
+
+<h1>Support</h1>
+<p class="sub">Improv Kitchen · questions, problems, and how the keys work</p>
+
+<p><strong>The fastest way to reach us is email:</strong> <a href="mailto:REPLACE_WITH_SUPPORT_EMAIL">REPLACE_WITH_SUPPORT_EMAIL</a>. A human reads it. There are no analytics or crash reports in the app, so if something is broken, your email is genuinely how we find out. Say what you did, what you expected, and what happened instead — a screenshot helps.</p>
+
+<!-- APPLE PATH -->
+<h2>Which model writes my recipes?</h2>
+<p>On iPhones with Apple Intelligence, the app works the moment you open it: recipes are written by Apple's foundation models, on your device or on Apple's servers under Apple's Private Cloud Compute protections. No account, no key, no setup, and generating recipes costs you nothing.</p>
+<p>If you prefer, you can instead connect an AI provider of your own — OpenRouter, Groq, Google Gemini, Anthropic, or a local model on your own computer — with your own API key, in Settings. You get bigger models and no daily allowance. This is also the path for iPhones without Apple Intelligence, and for the web version.</p>
+
+<!-- APPLE PATH -->
+<h2>What is the daily allowance, and why does the built-in path need a newer iPhone?</h2>
+<p>Apple gives every user a daily allowance of requests to its models; iCloud+ subscribers get a higher one. The allowance is Apple's, and Apple sets its size. Most evenings of cooking will not come near it — and if you do reach it, the app says so plainly instead of failing quietly. You can keep cooking from your saved recipes, wait for the allowance to reset, or switch to your own key in Settings, which has no daily allowance.</p>
+<p>The built-in path requires an iPhone that supports Apple Intelligence — Apple publishes the current device list on its website. On earlier iPhones the app works fully with your own key instead; nothing else about the app changes.</p>
+
+<h2>Why doesn't my ChatGPT Plus or Claude Pro subscription work here?</h2>
+<p><strong>Because those plans are locked to their own apps.</strong> A ChatGPT Plus, Claude Pro or Max, or Gemini app subscription buys access to that company's own app and website — it is not usable by third-party apps like this one, and no setting changes that. This is the single most common question we get, so to be plain: your subscription is not broken, and this app is not failing. They are simply different products.</p>
+<p>What works here is a <strong>pay-as-you-go API key</strong> — a key you create in a provider's developer console, where you pay only for what you use. Most recipes cost a few cents. Some providers have free tiers. Setup takes a few minutes, and the app's Settings screen walks you through it with links.</p>
+
+<h2>Getting a key, provider by provider</h2>
+
+<h3>OpenRouter — one key, many models</h3>
+<p>One key reaches GPT, Claude, Gemini, and open models, so it is the most flexible choice. Create an account at <a href="https://openrouter.ai">openrouter.ai</a>, add a small amount of credit, and create a key (it starts with <code>sk-or-</code>). Paste it into Settings.</p>
+
+<h3>Groq — fast, with a free tier</h3>
+<p>Create a key at <a href="https://console.groq.com">console.groq.com</a> (it starts with <code>gsk_</code>). The free tier is enough to try the app properly. Groq runs fast open models.</p>
+
+<h3>Google Gemini — free tier</h3>
+<p>Create a key at <a href="https://aistudio.google.com">aistudio.google.com</a>. The free tier works for real use; no billing setup is needed to start.</p>
+
+<h3>Anthropic — Claude, directly</h3>
+<p>Create a key at <a href="https://console.anthropic.com">console.anthropic.com</a> (it starts with <code>sk-ant-</code>). You will need to add billing first; usage is pay-as-you-go and a recipe costs a few cents.</p>
+
+<h3>A local model — free, on your own computer</h3>
+<p>Run <a href="https://lmstudio.ai">LM Studio</a> or <a href="https://ollama.com">Ollama</a> on a computer on the same network, enable its local server (and CORS, for the web version), and point Settings at its address. No key, no cost, and nothing leaves your home — quality depends on the model your machine can run.</p>
+
+<h2>Why does a direct OpenAI key work in the iPhone app but not in a browser?</h2>
+<p>OpenAI's API (<code>api.openai.com</code>) does not send the CORS headers that would let a web page call it, so a request from any browser never leaves the browser. That is OpenAI's choice, not a bug in the app, and the usual fix — routing your traffic through a server of ours — is exactly what this app refuses to do. In the iPhone app, requests go out natively, so a direct OpenAI key works there. On the web, use an OpenRouter key to reach GPT models instead.</p>
+
+<h2>Allergens and nutrition — what the app does and does not promise</h2>
+<p>Tell the app what you avoid, and every recipe is independently checked against 14 allergen families, including hidden sources like the fish in Worcestershire sauce and the wheat in ordinary soy sauce. <strong>It is a check on the AI's work, not a guarantee.</strong> It reads ingredient names; it cannot see brands, processing, or cross-contamination. Always read the labels on the ingredients you actually cook with.</p>
+<p>Nutrition figures are estimates made by the AI model and labeled that way on every card. They are for orientation, not measurement, and must not be used for medical or dietary management. The app makes no health claims of any kind.</p>
+
+<h2>What happens to my data?</h2>
+<p>Nothing reaches us. There is no server of ours, no account, and no analytics; your recipes, pantry, notes, and key stay on your device. When you generate a recipe, your request goes to the model you are using — Apple's, or the provider whose key you entered — and to no one else. The full story, including exactly what leaves your device and when, is in the <a href="privacy.html">privacy policy</a>.</p>
+
+<hr>
+
+<h2>Contact</h2>
+<p><a href="mailto:REPLACE_WITH_SUPPORT_EMAIL">REPLACE_WITH_SUPPORT_EMAIL</a> — for anything: bugs, confusion, a recipe that went wrong, or a question this page did not answer. If it is about privacy, the <a href="privacy.html">privacy policy</a> has its own contact section, but this address works too.</p>
+
+</main>
+</body>
+</html>
