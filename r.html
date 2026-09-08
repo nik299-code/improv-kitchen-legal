@@ -44,10 +44,12 @@
     <div id="fallback" hidden>
       <p><a id="get-app" class="btn" href="REPLACE_WITH_STORE_URL">Get Improv Kitchen</a></p>
       <div class="steps">
-        <p><strong>Already have the app?</strong></p>
-        <p>1. Copy this page&rsquo;s address.</p>
-        <p>2. In Improv Kitchen, open <strong>Library &rarr; Add from a link</strong>.</p>
-        <p>3. Paste, and the recipe is yours.</p>
+        <p><strong>Already have the app?</strong> Tap
+        <strong>Open in the app</strong> above &mdash; it copies this link for
+        you &mdash; then tap <strong>Paste the copied link</strong> inside.</p>
+        <p style="margin-top:.75rem">Or by hand: copy this page&rsquo;s
+        address, open <strong>Library &rarr; Add from a link</strong>, and
+        paste.</p>
         <p style="margin-top:.75rem"><a id="copy-link" class="btn quiet" href="#">Copy the link</a></p>
       </div>
     </div>
@@ -84,14 +86,20 @@
   if (!storeReady) document.getElementById("get-app").hidden = true;
 
   function tryApp() {
-    // If the app is installed, iOS backgrounds this page mid-navigation and the
-    // timer below never gets to reveal the fallback. If it is not, the failed
-    // scheme leaves the page exactly where it was — so the fallback appearing
-    // is itself the signal that the app is missing.
-    location.href = "improvkitchen://import#" + payload;
-    setTimeout(function () {
-      if (!document.hidden) fallback.hidden = false;
-    }, 1600);
+    // THE PAYLOAD DOES NOT RIDE THE SCHEME. iOS truncates inter-app scheme
+    // URLs at ~2KB and a real recipe is bigger — measured, not guessed — so
+    // the full link goes to the CLIPBOARD (this runs in a tap, which is what
+    // makes the copy allowed) and the scheme opens the app bare, straight
+    // onto its paste screen. If the app is installed, iOS backgrounds this
+    // page mid-navigation and the timer never gets to reveal the fallback;
+    // the fallback appearing is itself the signal that the app is missing.
+    var open = function () {
+      location.href = "improvkitchen://import";
+      setTimeout(function () {
+        if (!document.hidden) fallback.hidden = false;
+      }, 1600);
+    };
+    navigator.clipboard.writeText(location.href).then(open, open);
   }
 
   if (!SCHEME_REGISTERED) {
@@ -102,9 +110,9 @@
       e.preventDefault();
       tryApp();
     });
-    // One automatic attempt on arrival: the common case is a friend WITH the
-    // app tapping the link, and they should not need a second tap.
-    tryApp();
+    // No automatic attempt on arrival: the copy that makes the handoff work
+    // is only permitted inside a real tap, and an auto-fired bare scheme
+    // would open the app with nothing to paste.
   }
 
   document.getElementById("copy-link").addEventListener("click", function (e) {
