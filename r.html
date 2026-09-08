@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Search engines have no business indexing individual share links. The
+     recipe itself is in the fragment and never reaches any server, but the
+     page URL still lands in chat logs; keep crawlers away from the pattern. -->
+<meta name="robots" content="noindex">
+<title>A recipe for you — Improv Kitchen</title>
+<style>
+  /* Same palette as the legal pages, so every hosted page reads as one app. */
+  :root { --paper:#fbf8ef; --ink:#2e2a26; --soft:#6b635a; --line:#e2dabf; --matcha:#4a7c46; }
+  @media (prefers-color-scheme: dark) {
+    :root { --paper:#1c1a17; --ink:#efe7d9; --soft:#a9a093; --line:#3a352f; --matcha:#7fb27a; }
+  }
+  body { margin:0; padding:3.5rem 1.25rem 5rem; background:var(--paper); color:var(--ink);
+         font:16px/1.65 ui-rounded,-apple-system,system-ui,sans-serif; }
+  main { max-width:26rem; margin:0 auto; text-align:center; }
+  h1 { font-size:1.6rem; line-height:1.25; margin:1.25rem 0 .5rem; }
+  p { margin:.5rem 0; }
+  .soft { color:var(--soft); font-size:.925rem; }
+  .btn { display:inline-block; margin-top:1rem; padding:.8rem 1.6rem; border-radius:999px;
+         font-weight:700; text-decoration:none; color:var(--paper); background:var(--ink); }
+  .btn.quiet { background:transparent; color:var(--ink); border:1px solid var(--line); }
+  .steps { text-align:left; margin:1.5rem auto 0; padding:1rem 1.25rem; border:1px dashed var(--line);
+           border-radius:16px; }
+  .steps p { margin:.35rem 0; }
+  [hidden] { display:none !important; }
+  .mark { font-size:2.5rem; }
+</style>
+</head>
+<body>
+<main>
+  <div class="mark" aria-hidden="true">&#127858;</div>
+
+  <div id="with-recipe">
+    <h1>Someone sent you a recipe</h1>
+    <p class="soft">Made with Improv Kitchen. The whole recipe is inside this
+    link &mdash; it was never uploaded anywhere.</p>
+
+    <p><a id="open-app" class="btn" href="#">Open in the app</a></p>
+
+    <div id="fallback" hidden>
+      <p><a id="get-app" class="btn" href="REPLACE_WITH_STORE_URL">Get Improv Kitchen</a></p>
+      <div class="steps">
+        <p><strong>Already have the app?</strong></p>
+        <p>1. Copy this page&rsquo;s address.</p>
+        <p>2. In Improv Kitchen, open <strong>Library &rarr; Add from a link</strong>.</p>
+        <p>3. Paste, and the recipe is yours.</p>
+        <p style="margin-top:.75rem"><a id="copy-link" class="btn quiet" href="#">Copy the link</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div id="no-recipe" hidden>
+    <h1>Improv Kitchen</h1>
+    <p class="soft">This page delivers shared recipes, but this link
+    isn&rsquo;t carrying one. Ask your friend to send it again.</p>
+    <p><a id="get-app-bare" class="btn" href="REPLACE_WITH_STORE_URL">Get Improv Kitchen</a></p>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  // Flip to false if the app-side scheme handler is ever pulled: firing an
+  // unregistered scheme puts a system error dialog in front of every
+  // recipient before they read a word. True since build 21 — the app
+  // registers improvkitchen:// and routes it to /import.
+  var SCHEME_REGISTERED = true;
+  var payload = location.hash.slice(1);
+  var storeReady = document.getElementById("get-app").getAttribute("href").indexOf("http") === 0;
+
+  if (!payload) {
+    document.getElementById("with-recipe").hidden = true;
+    document.getElementById("no-recipe").hidden = false;
+    if (!storeReady) document.getElementById("get-app-bare").hidden = true;
+    return;
+  }
+
+  var fallback = document.getElementById("fallback");
+  // Until a store link exists, hide the button rather than shipping a dead one.
+  if (!storeReady) document.getElementById("get-app").hidden = true;
+
+  function tryApp() {
+    // If the app is installed, iOS backgrounds this page mid-navigation and the
+    // timer below never gets to reveal the fallback. If it is not, the failed
+    // scheme leaves the page exactly where it was — so the fallback appearing
+    // is itself the signal that the app is missing.
+    location.href = "improvkitchen://import#" + payload;
+    setTimeout(function () {
+      if (!document.hidden) fallback.hidden = false;
+    }, 1600);
+  }
+
+  if (!SCHEME_REGISTERED) {
+    document.getElementById("open-app").hidden = true;
+    fallback.hidden = false;
+  } else {
+    document.getElementById("open-app").addEventListener("click", function (e) {
+      e.preventDefault();
+      tryApp();
+    });
+    // One automatic attempt on arrival: the common case is a friend WITH the
+    // app tapping the link, and they should not need a second tap.
+    tryApp();
+  }
+
+  document.getElementById("copy-link").addEventListener("click", function (e) {
+    e.preventDefault();
+    var self = e.target;
+    // The fragment is part of href, so the whole recipe rides the copy.
+    navigator.clipboard.writeText(location.href).then(
+      function () {
+        self.textContent = "Copied";
+        setTimeout(function () { self.textContent = "Copy the link"; }, 2000);
+      },
+      function () {
+        // Clipboard permission denied — say so instead of silently doing
+        // nothing under a button that claims to work.
+        self.textContent = "Copy blocked — long-press the address bar instead";
+      }
+    );
+  });
+})();
+</script>
+</body>
+</html>
