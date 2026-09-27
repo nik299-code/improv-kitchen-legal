@@ -1,4 +1,4 @@
-# Improv Kitchen — legal pages
+# Kitchen Jam — legal pages
 
 Public hosting for the app's Privacy Policy and Terms of Use, because
 App Store Connect requires a **publicly reachable URL** for the privacy
