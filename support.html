@@ -42,16 +42,26 @@
 
 <!-- APPLE PATH -->
 <h3>Why does it need a newer iPhone and iOS 27?</h3>
-<p>Recipes are written by Apple’s on-device model. That needs an iPhone or iPad with Apple Intelligence (Apple publishes the current device list), and iOS 27 is the first release whose model has room for a full recipe.</p>
+<p>With no key, recipes are written by Apple Intelligence, using Apple’s model on Apple’s Private Cloud Compute. Apple makes that available to apps on iPhones and iPads with Apple Intelligence (Apple publishes the current device list) running iOS 27, where Apple Intelligence is available. On iOS 26, the app shows a “Free with iOS 27” card: update the phone, and it works with no key.</p>
 <p>On other iPhones, and in a browser, connect your own AI instead. Everything else in the app works the same.</p>
 
 <!-- APPLE PATH -->
+<h3>Does my request leave my phone when I use Apple Intelligence?</h3>
+<p>Yes. Apple’s model runs on Apple’s Private Cloud Compute servers, not on your phone. To write a recipe, the app sends your request there: what you typed, and the parts of your profile and pantry the recipe needs, such as allergies, diet and favourite cuisines. It goes from your phone to Apple. It never comes to us — we have no server.</p>
+<p>Apple states that Private Cloud Compute uses a request only to answer it, does not keep it, and does not make it accessible to Apple. The <a href="privacy.html#apple-intelligence">privacy policy</a> has the details and links to Apple’s own explanation.</p>
+<p>Some things stay on your phone: speech is turned into text on the phone, the allergen check runs on the phone, and your saved recipes, pantry and notes are kept on the phone — and in your own iCloud backup, if it is on.</p>
+
+<!-- APPLE PATH -->
 <h3>Does it cost anything?</h3>
-<p>On iOS 27 with Apple Intelligence, generating recipes costs you nothing: it runs on your device.</p>
+<p>On iOS 27 with Apple Intelligence, generating recipes costs you nothing, within a daily limit that Apple sets. If you reach it, the app tells you when it resets. Until then, you can use your own key.</p>
 <p>With your own key, you pay your provider for what you use. Most recipes cost a few cents, and Google Gemini and Groq give free keys with a daily limit.</p>
 
 <h3>Do I need an account?</h3>
 <p>No. There is no account to create, and no server of ours in the middle.</p>
+
+<h3>What do favourite cuisines do?</h3>
+<p>In setup, and any time in Settings under <strong>Cuisines you love</strong>, you can pick the cuisines you cook or love. When you leave the choice open — “dinner tonight”, “a fusion with salmon” — the recipe stays within those cuisines. Tap <strong>Try something new</strong> for one from outside your list, or name the dish or cuisine you want: a request you name is always followed. Pick none for no preference.</p>
+<p>Your choices are saved with your profile on your phone, and in your own iCloud backup if it is on. They are sent with your recipe requests, like your diet, so the recipe can follow them.</p>
 
 <h2>Your own AI</h2>
 
@@ -61,10 +71,11 @@
 
 <h3>How do I get a key?</h3>
 <ul>
-  <li><strong>OpenRouter</strong> — one key for many models. Sign in from Settings, or make a key at <a href="https://openrouter.ai">openrouter.ai</a>.</li>
-  <li><strong>Groq</strong> — free tier. Make a key at <a href="https://console.groq.com">console.groq.com</a>. On the free tier a recipe can wait up to a minute to start.</li>
-  <li><strong>Google Gemini</strong> — free tier. Make a key at <a href="https://aistudio.google.com">aistudio.google.com</a>.</li>
-  <li><strong>Anthropic</strong> — Claude, pay as you go. Make a key at <a href="https://console.anthropic.com">console.anthropic.com</a>; add billing first.</li>
+  <li><strong>Google Gemini</strong> — free key, with a daily limit. Make a key at <a href="https://aistudio.google.com">aistudio.google.com</a>.</li>
+  <li><strong>OpenAI</strong> — GPT models, pay as you go, with an OpenAI API account (separate from ChatGPT). Make a key at <a href="https://platform.openai.com">platform.openai.com</a>; add billing first. Works in the iPhone app (see below for browsers).</li>
+  <li><strong>Anthropic</strong> — Claude models, pay as you go, with an Anthropic API account (separate from Claude.ai). Make a key at <a href="https://console.anthropic.com">console.anthropic.com</a>; add billing first.</li>
+  <li><strong>OpenRouter</strong> — one account for many models. Tap <strong>Connect with OpenRouter</strong> in Settings and sign in: the key comes back to the app by itself. Add a few dollars of credit first.</li>
+  <li><strong>Groq</strong> — free key, with limits. Make a key at <a href="https://console.groq.com">console.groq.com</a>. On the free tier a recipe can wait up to a minute to start.</li>
   <li><strong>A local model</strong> — run <a href="https://lmstudio.ai">LM Studio</a> or <a href="https://ollama.com">Ollama</a> on a computer on your network, and point Settings at it. Nothing leaves your home.</li>
 </ul>
 <p>Your key stays on your device. Requests go straight from your phone to the provider you chose.</p>
@@ -75,7 +86,7 @@
 <h2>Allergens and nutrition</h2>
 
 <h3>How does the allergen check work?</h3>
-<p>Tell the app what you avoid, and every recipe is checked against 14 allergen families, including hidden sources like the fish in Worcestershire sauce and the wheat in ordinary soy sauce.</p>
+<p>Tell the app what you avoid, and every recipe is checked for common allergens, including hidden sources like the fish in Worcestershire sauce and the wheat in ordinary soy sauce.</p>
 <p><strong>It is a check on the AI’s work, not a guarantee.</strong> It reads ingredient names; it cannot see brands, processing or cross-contamination. Always read the labels on what you cook with.</p>
 
 <h3>Can I trust the nutrition numbers?</h3>
@@ -84,11 +95,11 @@
 <h2>Your data</h2>
 
 <h3>What happens to my data?</h3>
-<p>Nothing reaches us. Your recipes, pantry, notes and key stay on your device. With iCloud backup on, your recipes, pantry, shopping list and profile are also kept in your own private iCloud storage, which we cannot see. Your key never is.</p>
-<p>When you ask for a recipe, the request goes only to the model you use: Apple’s, or the provider you chose. The <a href="privacy.html">privacy policy</a> has the details.</p>
+<p>Nothing reaches us. Your recipes, pantry, notes and key are saved on your device. With iCloud backup on, your recipes, pantry, shopping list and profile (including favourite cuisines) are also kept in your own private iCloud storage, which we cannot see. Your key never is.</p>
+<p>When you ask for a recipe, the request goes only to the AI you use: Apple Intelligence on Apple’s Private Cloud Compute, or the provider you chose. The <a href="privacy.html">privacy policy</a> has the details.</p>
 
 <h3>Will my recipes come back if I reinstall?</h3>
-<p>On iPhone, yes, if you are signed in to iCloud and <strong>Back up to iCloud</strong> is on in the app’s Settings. Reinstall, use the same iCloud account, and your recipes, pantry and shopping list come back when the app opens. Your API key is not in the backup, but on iPhone the app usually finds it again in the Keychain.</p>
+<p>On iPhone, yes, if you are signed in to iCloud and <strong>Back up to iCloud</strong> is on in the app’s Settings. Reinstall, use the same iCloud account, and your recipes, pantry and shopping list can come back when the app opens. Your API key is not in the backup, but on iPhone the app usually finds it again in the Keychain.</p>
 <p><strong>Before you delete the app, use Export library in Settings</strong> to save a copy to Files. Without iCloud backup, or in a browser, deleting the app deletes your recipes. <strong>Import library</strong> brings a copy back; it adds to what is there and never removes anything.</p>
 
 <hr>
